@@ -32,13 +32,9 @@ class DepartmentsController < ApplicationController
     @department = Department.where({ :id => the_id }).at(0)
 
     @department.name = params.fetch("query_name")
+    @department.save
+    redirect_to("/departments", { :notice => "Department created successfully." })
 
-    if @department.valid?
-      @department.save
-      redirect_to("/departments/#{@department.id}", { :notice => "Department updated successfully."} )
-    else
-      redirect_to("/departments/#{@department.id}", { :alert => "Department failed to update successfully." })
-    end
   end
 
   def destroy
